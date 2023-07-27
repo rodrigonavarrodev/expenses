@@ -3,9 +3,9 @@ import express from 'express';
 import { createServer } from 'http';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { router } from '../src/routes/router.mjs';
+import { router } from './src/routes/router.mjs';
 import mongoose from 'mongoose';
-import config from '../src/config.mjs';
+import config from './config.mjs';
 import cors from 'cors';
 
 const app = express();
