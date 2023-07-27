@@ -1,0 +1,41 @@
+# Ignorar carpetas específicas
+node_modules/
+dist/
+build/
+docker-compose.yml
+Dockerfile
+
+# Ignorar archivos generados automáticamente
+*.log
+*.tmp
+*.swp
+*.cache
+
+# Ignorar el archivo .env, que suele contener variables de entorno locales
+.env
+
+# Ignorar archivos de dependencias o configuración de npm/yarn
+package-lock.json
+yarn.lock
+
+# Ignorar archivos de configuración del IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignorar archivos de respaldo
+*.bak
+*.backup
+
+# Ignorar archivos de registro
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignorar archivos de cobertura de pruebas
+coverage/
+.nyc_output/
+
+# Ignorar archivos de caché de ESLint
+.eslintcache/
