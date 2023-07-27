@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabla de debts Pendientes</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="container text-center" data-bs-theme="dark">
+    <div class="card">
+      <h1 class="text-center">Tabla de debts Pendientes</h1>
+      <h2 id="total" class="text-center">Total</h2>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>Cuota</th>
+              <th>Mes</th>
+              <th>Valor Cuota</th>
+              <th>Estado</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <!-- Aquí se generarán las filas dinámicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      // Datos que enviaremos en el body de la solicitud POST
+      const bodyData = {
+        username: 'rodrigo',
+        month: '8-2023',
+      };
+
+      // Configuramos las opciones para la solicitud POST
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bodyData),
+      };
+
+      // Hacemos la solicitud al servidor usando fetch()
+      fetch('http://localhost:3000/api/debts', requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          const tableBody = document.getElementById('table-body');
+          const totalElement = document.getElementById('total');
+
+          data.pendingDebts.forEach((fee) => {
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+          <td>${fee.fee}</td>
+          <td>${fee.month}</td>
+          <td>${fee.feeAmount.toFixed(2)}</td>
+          <td>${fee.status}</td>
+          <td>${fee.description}</td>
+        `;
+
+            tableBody.appendChild(row);
+          });
+
+          totalElement.textContent = `Total: ${data.totalAmount.toFixed(2)}`; // Redondeamos el total a 2 decimales
+        })
+        .catch((error) => {
+          console.error('Error al obtener los datos del servidor:', error);
+        });
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

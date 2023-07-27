@@ -2,7 +2,7 @@
 import express from 'express';
 import { createServer } from 'http';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { dirname, join } from 'path';
 import { router } from './src/routes/router.mjs';
 import mongoose from 'mongoose';
 import config from './config.mjs';
@@ -23,6 +23,11 @@ app.use('/api', router);
 
 // Serve static files (optional, for frontend)
 app.use(express.static(__dirname + '/public'));
+
+// Route to render HTML
+app.get('/dashboard', (req, res) => {
+  res.sendFile(join(__dirname, 'public', 'index.html'));
+});
 
 // Conectar a la base de datos
 mongoose
